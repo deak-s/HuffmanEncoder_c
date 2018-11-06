@@ -52,8 +52,22 @@ int main() {
     qsort(frequencyList, 256, sizeof(Pair), compare);
 
     printf("sorted frequency list\n");
-    for( k = 0; k < 127; k++){
+    size_t listSize = 0;
+    for( k = 0; frequencyList[k].frequency != 0;  k++){
         printf("%c : %d\n", frequencyList[k].character, frequencyList[k].frequency);
+        listSize++;
     }
+
+    printf("%ld\n", listSize);
+
+    //frequency list without 0s
+    Pair finalFrequencyList[listSize];
+    memcpy(finalFrequencyList, frequencyList, (listSize * sizeof(Pair)));
+
+    for( k = 0; k < listSize;  k++){
+        printf("%c : %d\n", finalFrequencyList[k].character, finalFrequencyList[k].frequency);
+    }
+
+
     return 0;
 }
