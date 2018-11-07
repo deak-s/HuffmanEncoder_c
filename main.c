@@ -9,10 +9,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct pair {
-    char character;
-    int frequency;
-} Pair;
+#include "nodeQueue.h"
+
+
 
 
 int compare (const void *a, const void *b){
@@ -20,6 +19,13 @@ int compare (const void *a, const void *b){
     int fB =  ((Pair *)b)->frequency; 
     return (fB - fA);
 }
+
+int compareSmaller (const void *a, const void *b){
+    int fA =  ((Pair *)a)->frequency;
+    int fB =  ((Pair *)b)->frequency; 
+    return (fA - fB);
+}
+
 
 int main() {
 
@@ -68,6 +74,28 @@ int main() {
         printf("%c : %d\n", finalFrequencyList[k].character, finalFrequencyList[k].frequency);
     }
 
+    qsort(finalFrequencyList, listSize, sizeof(Pair), compareSmaller);
+
+    printf("reversed\n");
+    for( k = 0; k < listSize;  k++){
+        printf("%c : %d\n", finalFrequencyList[k].character, finalFrequencyList[k].frequency);
+    }
+
+
+    printf("queue\n");
+  
+    Queue *testQueue = initializeEmptyQueue();
+
+    fillQueueFromArray(finalFrequencyList, testQueue, listSize);
+
+    
+    printQueue(testQueue);
+
+    Node *brief = dequeue(testQueue);
+    printf("temp %c : %d", brief->character, brief->frequency);
+
+    brief = dequeue(testQueue);
+    printf("temp %c : %d", brief->character, brief->frequency);
 
     return 0;
 }
