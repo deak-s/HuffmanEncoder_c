@@ -14,7 +14,6 @@
 
 
 
-
 int compare (const void *a, const void *b){
     int fA =  ((Pair *)a)->frequency;
     int fB =  ((Pair *)b)->frequency; 
@@ -103,11 +102,9 @@ int main() {
     
     Queue *testMiddle = initializeEmptyQueue();
 
-
     //might not be necessary
     Node *testA = (Node *)malloc(sizeof(Node));
     Node *testB = (Node *)malloc(sizeof(Node));
-
 
     assignLowestNodes(&testA, &testB, testQueue, testMiddle);
 
@@ -117,7 +114,7 @@ int main() {
     printf("test b  %c : %d \n", testB->character, testB->frequency);
     
 
-     Node *testC = (Node *)malloc(sizeof(Node));
+    Node *testC = (Node *)malloc(sizeof(Node));
     Node *testD = (Node *)malloc(sizeof(Node));
 
 
@@ -135,25 +132,37 @@ int main() {
     
 
     // -------------first middle node ------------
+    printf("------------1st NODE---------\n");
     Node *testMidNode = createMiddleNode(testA, testB);
     printf("expect * : 2\n");
 
     printf("test midNode  %c : %d \n", testMidNode->character, testMidNode->frequency);
 
 
+    printf("middle queue before TMN1: \n");
+    printQueue(testMiddle);
+
     enqueue(testMiddle, testMidNode);
 
+    printf("middle queue after TMN1: \n");
+    printQueue(testMiddle);
+
     // -------------second middle node ------------
+    printf("------------2TH NODE---------\n");
     Node *testMidNode2 = createMiddleNode(testC, testD);
     printf("expect * : 2\n");
 
     printf("test midNode2  %c : %d \n", testMidNode2->character, testMidNode2->frequency);
+
+    printf("middle queue before TMN2: ");
+    printQueue(testMiddle);
 
 
     enqueue(testMiddle, testMidNode2);
 
 
     // -------------third middle node ------------
+    printf("------------3TH NODE---------\n");
     Node *testE = (Node *)malloc(sizeof(Node));
     Node *testF = (Node *)malloc(sizeof(Node));
 
@@ -168,23 +177,38 @@ int main() {
 
     printf("test midNode3  %c : %d \n", testMidNode3->character, testMidNode3->frequency);
 
+    printf("middle queue before TMN3: \n");
+    printQueue(testMiddle);
 
     enqueue(testMiddle, testMidNode3);
 
 
     // -------------fourth middle node ------------
+    printf("------------4TH NODE---------\n");
+
+
+    printf("middle queue before TMN4: \n");
+    printQueue(testMiddle);
+    
     Node *testG = (Node *)malloc(sizeof(Node));
     Node *testH = (Node *)malloc(sizeof(Node));
 
-    assignLowestNodes(&testG, &testH, testQueue, testMiddle);
-
-    printf("test g  %c : %d \n", testG->character, testE->frequency);
-    printf("test h  %c : %d \n", testH->character, testF->frequency);
-
-
-    printf("front of middle queue before testmidnode 4: %c %d\n",
+    printf("front of middle queue before testmidnode4: %c %d\n",
             testMiddle->head->right->character,
             testMiddle->head->right->frequency);
+
+
+    assignLowestNodes(&testG, &testH, testQueue, testMiddle);
+
+    printf("test g  %c : %d \n", testG->character, testH->frequency);
+    printf("test h  %c : %d \n", testH->character, testH->frequency);
+
+
+    printf("test h-child  %c : %d \n", testH->right->character, testH->right->frequency);
+
+//    printf("front of middle queue before testmidnode4: %c %d\n",
+ //           testMiddle->head->right->character,
+  //          testMiddle->head->right->frequency);
 
 
     Node *testMidNode4 = createMiddleNode(testG, testH);
@@ -192,9 +216,9 @@ int main() {
 
     printf("test midNode4  %c : %d \n", testMidNode4->character, testMidNode4->frequency);
 
-
     enqueue(testMiddle, testMidNode4);
 
+    // middle node correct children here
     printf("front of middle queue: %c %d\n",
             testMiddle->head->character,
             testMiddle->head->frequency);
@@ -206,6 +230,42 @@ int main() {
 
     printf("test midNode4 left left %c : %d \n", testMidNode4->left->left->character, testMidNode4->left->left->frequency);
 
+    printf("middle queue after TMN4: \n");
+    printQueue(testMiddle);
 
-   return 0;
+
+
+
+    // -------------fifth middle node ------------
+    printf("------------5TH NODE---------\n");
+
+     
+    Node *testI = (Node *)malloc(sizeof(Node));
+    Node *testJ = (Node *)malloc(sizeof(Node));
+
+    assignLowestNodes(&testI, &testJ, testQueue, testMiddle);
+
+    printf("test I  %c : %d \n", testI->character, testI->frequency);
+    printf("test J  %c : %d \n", testJ->character, testJ->frequency);
+
+
+   Node *testMidNode5 = createMiddleNode(testI, testJ);
+ 
+    printf("test midNode5  left %c : %d \n", 
+            testMidNode5->left->character, 
+            testMidNode5->left->frequency);
+    printf("test midNode5  right %c : %d \n", 
+            testMidNode5->right->character, 
+            testMidNode5->right->frequency);
+     printf("test midNode5 left left %c : %d \n", 
+            testMidNode5->left->left->character, 
+           testMidNode5->left->left->frequency);
+
+
+    enqueue(testMiddle, testMidNode5);
+
+    printf("middle queue after TMN5: \n");
+    printQueue(testMiddle);
+
+return 0;
 }

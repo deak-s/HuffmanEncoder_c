@@ -19,6 +19,9 @@ Node * createNode(char c, int f) {
     newNode->frequency = f;
     newNode->next = NULL;
     newNode->prev = NULL;
+
+    newNode->left= NULL;
+    newNode->right= NULL;
     return newNode;
 }
 
@@ -26,6 +29,9 @@ Node *copyNode(Node *original){
     Node  *newNode = createNode(original->character, original->frequency);
     newNode->next = original->next;
     newNode->prev = original->prev;
+
+    newNode->right = original->right;
+    newNode->left = original->left;
     return newNode;
 }
 
@@ -64,6 +70,7 @@ Queue *fillQueueFromArray(Pair *array, Queue *theQueue, size_t length){
 void enqueue(Queue *theQueue, Node *theNode){
     //case: first node
     if(theQueue->head == NULL){
+        printf("Q   first element added\n");
         theQueue->head = theNode;
         return;
     }
@@ -89,12 +96,17 @@ Node *dequeue(Queue *theQueue){
 
 
 void printQueue(Queue *theQueue){
+
+    if(theQueue->head == NULL){
+        printf("queue empty");
+        return;
+    }
     
     Node *tempNode = theQueue->head;
-
-    while(tempNode->next != NULL){
+    printf(" %c : %d \n", tempNode->character, tempNode->frequency);
+     while(tempNode->next != NULL){
+        tempNode = tempNode->next;
 
         printf(" %c : %d \n", tempNode->character, tempNode->frequency);
-        tempNode = tempNode->next;
-    }
+     }
 };

@@ -13,6 +13,7 @@
 
 void assignLowestNodes(Node **A, Node **B, Queue *leafQueue, Queue *middleQueue){
 
+    printf("STARTING ASSIGNMENT\n");
     
     //initially assume leaves are smallest
     Node *tempA = leafQueue->head;
@@ -26,16 +27,30 @@ void assignLowestNodes(Node **A, Node **B, Queue *leafQueue, Queue *middleQueue)
         printf("middle queue head not null\n");
 
         if(middleQueue->head->frequency < tempA->frequency){
-            printf("tempA gets mid node\n");
+            printf("!----tempA gets mid node\n");
+
+        printf("mid node  %c : %d \n", middleQueue->head->character, middleQueue->head->frequency);
+        printf("mid node child  %c : %d \n", middleQueue->head->left->character, middleQueue->head->left->frequency);
             tempA = middleQueue->head;
         }
 
         else if(middleQueue->head->frequency < tempB->frequency){
-            printf("tempB gets mid node\n");
+            printf("!----tempB gets mid node\n");
             tempB = middleQueue->head;
+            printf("mid node  %c : %d \n", middleQueue->head->character, middleQueue->head->frequency);
+
+            printf("mid node  %c : %d \n", tempB->character, tempB->frequency);
+            printf("mid node child  %c : %d \n", middleQueue->head->left->character, middleQueue->head->left->frequency);
+
         }
 
     printf("temp a half way %c%d\n", tempA->character, tempA->frequency);
+    printf("tempB half way %c%d\n", tempB->character, tempB->frequency);
+
+    if(tempB->left != NULL){
+        printf("tempB child half way %c%d\n", tempB->left->character, tempB->left->frequency);
+    }
+
         //same process for 2nd element in mid queue
         if(middleQueue->head->next != NULL){
 
@@ -49,6 +64,7 @@ void assignLowestNodes(Node **A, Node **B, Queue *leafQueue, Queue *middleQueue)
                 tempB = middleQueue->head->next;
             }
         }
+
         printf("middles finished\n");
     }
 
@@ -62,10 +78,15 @@ void assignLowestNodes(Node **A, Node **B, Queue *leafQueue, Queue *middleQueue)
     printf("temp a %c%d\n", tempA->character, tempA->frequency);
     printf("temp b  %c : %d \n", tempB->character, tempB->frequency);
 
+    if(tempB->left != NULL){
+        printf("temp b child  %c : %d \n", tempB->left->character, tempB->left->frequency);
+    }
 
     printf("temp a  %c : %d \n", tempA->character, tempA->frequency);
+
     //if either node came from leaf queue, remove node from queue
-    if(tempA == leafQueue->head || tempB == leafQueue->head){ 
+    if(tempA->frequency == leafQueue->head->frequency 
+            || tempB->frequency == leafQueue->head->frequency){ 
         printf("A gets dequeued leaf\n");
             *A = dequeue(leafQueue);
 
@@ -73,8 +94,9 @@ void assignLowestNodes(Node **A, Node **B, Queue *leafQueue, Queue *middleQueue)
             
         //if both nodes came from leaf queue, dequeue another node
         //head of queue has changed bc dequeue
-         if(tempA == leafQueue->head || tempB == leafQueue->head){
-        printf("B gets dequeued leaf\n");
+         if(tempA->frequency == leafQueue->head->frequency 
+                 || tempB->frequency == leafQueue->head->frequency){
+            printf("B gets dequeued leaf\n");
             *B = dequeue(leafQueue);
 
             printf(" B  %c : %d \n", (*B)->character, (*B)->frequency);
@@ -87,18 +109,30 @@ void assignLowestNodes(Node **A, Node **B, Queue *leafQueue, Queue *middleQueue)
          if((*A)->character == 0){
              printf("A gets dequeued middle\n");
             *A = dequeue(middleQueue);
+
          }
          else{
              printf("B gets dequeued middle\n");
              *B = dequeue(middleQueue);
+
+            printf("*B  %c : %d \n", (*B)->character, (*B)->frequency);
+            printf("*B childs %c : %d \n", (*B)->left->character, (*B)->left->frequency);
          }
 
          //if both nodes came from middle
          if(tempA == middleQueue->head || tempB == middleQueue->head){ 
+             printf("2 B gets dequeued middle\n");
+
               *B = dequeue(middleQueue);
          } 
-             return;
      }
+
+     if((*B)->left != NULL){
+            printf("*B  %c : %d \n", (*B)->character, (*B)->frequency);
+            printf("*B childs %c : %d \n", (*B)->left->character, (*B)->left->frequency);
+         }
+
+     return;
 }
 
 Node *createMiddleNode(Node *A, Node *B ){
