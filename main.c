@@ -129,10 +129,83 @@ int main() {
     printf("test c  %c : %d \n", testC->character, testC->frequency);
     
     printf("expect z : 1\n");
+
+    
     printf("test d  %c : %d \n", testD->character, testD->frequency);
     
 
+    // -------------first middle node ------------
+    Node *testMidNode = createMiddleNode(testA, testB);
+    printf("expect * : 2\n");
+
+    printf("test midNode  %c : %d \n", testMidNode->character, testMidNode->frequency);
 
 
-    return 0;
+    enqueue(testMiddle, testMidNode);
+
+    // -------------second middle node ------------
+    Node *testMidNode2 = createMiddleNode(testC, testD);
+    printf("expect * : 2\n");
+
+    printf("test midNode2  %c : %d \n", testMidNode2->character, testMidNode2->frequency);
+
+
+    enqueue(testMiddle, testMidNode2);
+
+
+    // -------------third middle node ------------
+    Node *testE = (Node *)malloc(sizeof(Node));
+    Node *testF = (Node *)malloc(sizeof(Node));
+
+    assignLowestNodes(&testE, &testF, testQueue, testMiddle);
+
+    printf("test e  %c : %d \n", testE->character, testE->frequency);
+    printf("test f  %c : %d \n", testF->character, testF->frequency);
+
+
+    Node *testMidNode3 = createMiddleNode(testE, testF);
+    printf("expect * : 4\n");
+
+    printf("test midNode3  %c : %d \n", testMidNode3->character, testMidNode3->frequency);
+
+
+    enqueue(testMiddle, testMidNode3);
+
+
+    // -------------fourth middle node ------------
+    Node *testG = (Node *)malloc(sizeof(Node));
+    Node *testH = (Node *)malloc(sizeof(Node));
+
+    assignLowestNodes(&testG, &testH, testQueue, testMiddle);
+
+    printf("test g  %c : %d \n", testG->character, testE->frequency);
+    printf("test h  %c : %d \n", testH->character, testF->frequency);
+
+
+    printf("front of middle queue before testmidnode 4: %c %d\n",
+            testMiddle->head->right->character,
+            testMiddle->head->right->frequency);
+
+
+    Node *testMidNode4 = createMiddleNode(testG, testH);
+    printf("expect * : 4\n");
+
+    printf("test midNode4  %c : %d \n", testMidNode4->character, testMidNode4->frequency);
+
+
+    enqueue(testMiddle, testMidNode4);
+
+    printf("front of middle queue: %c %d\n",
+            testMiddle->head->character,
+            testMiddle->head->frequency);
+
+    printf("test midNode4  left %c : %d \n", testMidNode4->left->character, testMidNode4->left->frequency);
+    printf("test midNode4  right %c : %d \n", 
+            testMidNode4->right->character, 
+            testMidNode4->right->frequency);
+
+    printf("test midNode4 left left %c : %d \n", testMidNode4->left->left->character, testMidNode4->left->left->frequency);
+
+
+   return 0;
 }

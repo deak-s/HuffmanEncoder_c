@@ -17,6 +17,6 @@ typedef struct huffmantree {
 
 void assignLowestNodes(Node **A, Node **B, Queue *leafQueue, Queue *middleQueue);
 
-Node *addTreeNode(Queue *leafQueue, Queue *middleQueue);
+Node *createMiddleNode(Node *A, Node *B );
 
 #endif 

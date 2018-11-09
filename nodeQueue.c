@@ -17,15 +17,15 @@ Node * createNode(char c, int f) {
 
     newNode->character = c;
     newNode->frequency = f;
-    newNode->right = NULL;
-    newNode->left = NULL;
+    newNode->next = NULL;
+    newNode->prev = NULL;
     return newNode;
 }
 
 Node *copyNode(Node *original){
     Node  *newNode = createNode(original->character, original->frequency);
-    newNode->right = original->right;
-    newNode->left = original->left;
+    newNode->next = original->next;
+    newNode->prev = original->prev;
     return newNode;
 }
 
@@ -53,33 +53,36 @@ Queue *fillQueueFromArray(Pair *array, Queue *theQueue, size_t length){
         Pair *tempPair = &array[k];
 
         Node *tempNode = createNode(tempPair->character, tempPair->frequency);
-        currentNode->right = tempNode;
-        tempNode->left = currentNode;
+        currentNode->next = tempNode;
+        tempNode->prev = currentNode;
         
-        currentNode = currentNode->right;
+        currentNode = currentNode->next;
     }
 }
 
 
 void enqueue(Queue *theQueue, Node *theNode){
+    //case: first node
+    if(theQueue->head == NULL){
+        theQueue->head = theNode;
+        return;
+    }
     
-   
     Node *currentNode = theQueue->head;
-    while(currentNode->right != NULL){
-        currentNode = currentNode->right;
+    while(currentNode->next != NULL){
+        currentNode = currentNode->next;
     }
 
-    currentNode->right = theNode;
-    theNode->left = currentNode;
-    
+    currentNode->next = theNode;
+    theNode->prev = currentNode;
 };
 
 Node *dequeue(Queue *theQueue){
     
     Node *tempNode = copyNode(theQueue->head);
 
-    theQueue->head = tempNode->right;
-    free(theQueue->head->left);
+    theQueue->head = tempNode->next;
+    free(theQueue->head->prev);
 
     return tempNode;
 };
@@ -89,9 +92,9 @@ void printQueue(Queue *theQueue){
     
     Node *tempNode = theQueue->head;
 
-    while(tempNode->right != NULL){
+    while(tempNode->next != NULL){
 
         printf(" %c : %d \n", tempNode->character, tempNode->frequency);
-        tempNode = tempNode->right;
+        tempNode = tempNode->next;
     }
 };

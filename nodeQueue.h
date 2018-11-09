@@ -19,12 +19,17 @@ struct node {
 
     Node * left;
     Node * right;
+
+    Node *prev;
+    Node *next;
 };
+
 
 struct queue {
     Node *head;
     Node *tail;
 };
+
 
 typedef struct pair {
     char character;
