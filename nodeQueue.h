@@ -5,22 +5,25 @@
  * @brief header file for implementation of node queue
  */
 
+#ifndef NODEQUEUE_H
+#define NODEQUEUE_H
 
 typedef struct node Node;
 typedef struct queue Queue;
 
+
+//nodes are the same for queue and tree
 struct node {
     char character;
     int frequency;
 
-    Node * next;
-    Node * prev;
+    Node * left;
+    Node * right;
 };
 
 struct queue {
     Node *head;
     Node *tail;
-
 };
 
 typedef struct pair {
@@ -40,3 +43,5 @@ void  enqueue(Queue *theQueue, Node *theNode);
 Node *dequeue(Queue *theQueue);
 
 void printQueue(Queue *theQueue);
+
+#endif

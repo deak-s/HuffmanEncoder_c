@@ -10,6 +10,7 @@
 #include <string.h>
 
 #include "nodeQueue.h"
+#include "helpers.h"
 
 
 
@@ -96,6 +97,42 @@ int main() {
 
     brief = dequeue(testQueue);
     printf("temp %c : %d", brief->character, brief->frequency);
+
+    
+    //test queue is leaf queue
+    
+    Queue *testMiddle = initializeEmptyQueue();
+
+
+    //might not be necessary
+    Node *testA = (Node *)malloc(sizeof(Node));
+    Node *testB = (Node *)malloc(sizeof(Node));
+
+
+    assignLowestNodes(&testA, &testB, testQueue, testMiddle);
+
+
+    printf("test a  %c : %d \n", testA->character, testA->frequency);
+    
+    printf("test b  %c : %d \n", testB->character, testB->frequency);
+    
+
+     Node *testC = (Node *)malloc(sizeof(Node));
+    Node *testD = (Node *)malloc(sizeof(Node));
+
+
+    assignLowestNodes(&testC, &testD, testQueue, testMiddle);
+
+
+
+    printf("expect g : 1\n");
+    printf("test c  %c : %d \n", testC->character, testC->frequency);
+    
+    printf("expect z : 1\n");
+    printf("test d  %c : %d \n", testD->character, testD->frequency);
+    
+
+
 
     return 0;
 }

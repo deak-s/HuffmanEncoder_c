@@ -17,21 +17,23 @@ Node * createNode(char c, int f) {
 
     newNode->character = c;
     newNode->frequency = f;
-    newNode->next = NULL;
-    newNode->prev = NULL;
+    newNode->right = NULL;
+    newNode->left = NULL;
     return newNode;
 }
 
 Node *copyNode(Node *original){
     Node  *newNode = createNode(original->character, original->frequency);
-    newNode->next = original->next;
-    newNode->prev = original->prev;
+    newNode->right = original->right;
+    newNode->left = original->left;
     return newNode;
 }
 
 Queue *initializeEmptyQueue () {
     Queue *newQueue;
     newQueue = (Queue *)malloc(sizeof(Queue));
+    newQueue->head = NULL;
+    newQueue->tail = NULL;
 
     return newQueue;
 }
@@ -51,10 +53,10 @@ Queue *fillQueueFromArray(Pair *array, Queue *theQueue, size_t length){
         Pair *tempPair = &array[k];
 
         Node *tempNode = createNode(tempPair->character, tempPair->frequency);
-        currentNode->next = tempNode;
-        tempNode->prev = currentNode;
+        currentNode->right = tempNode;
+        tempNode->left = currentNode;
         
-        currentNode = currentNode->next;
+        currentNode = currentNode->right;
     }
 }
 
@@ -63,12 +65,12 @@ void enqueue(Queue *theQueue, Node *theNode){
     
    
     Node *currentNode = theQueue->head;
-    while(currentNode->next != NULL){
-        currentNode = currentNode->next;
+    while(currentNode->right != NULL){
+        currentNode = currentNode->right;
     }
 
-    currentNode->next = theNode;
-    theNode->prev = currentNode;
+    currentNode->right = theNode;
+    theNode->left = currentNode;
     
 };
 
@@ -76,8 +78,8 @@ Node *dequeue(Queue *theQueue){
     
     Node *tempNode = copyNode(theQueue->head);
 
-    theQueue->head = tempNode->next;
-    free(theQueue->head->prev);
+    theQueue->head = tempNode->right;
+    free(theQueue->head->left);
 
     return tempNode;
 };
@@ -87,9 +89,9 @@ void printQueue(Queue *theQueue){
     
     Node *tempNode = theQueue->head;
 
-    while(tempNode->next != NULL){
+    while(tempNode->right != NULL){
 
         printf(" %c : %d \n", tempNode->character, tempNode->frequency);
-        tempNode = tempNode->next;
+        tempNode = tempNode->right;
     }
 };
