@@ -55,7 +55,9 @@ Queue *fillQueueFromArray(Pair *array, Queue *theQueue, size_t length){
     theQueue->head = createNode(tempPair->character, tempPair->frequency);
 
     Node *currentNode = theQueue->head;
-    for (int k = 1; k <= length; k++){
+
+    
+    for (int k = 1; k < length; k++){
         Pair *tempPair = &array[k];
 
         Node *tempNode = createNode(tempPair->character, tempPair->frequency);
@@ -110,3 +112,24 @@ void printQueue(Queue *theQueue){
         printf(" %c : %d \n", tempNode->character, tempNode->frequency);
      }
 };
+
+
+void deleteQueue(Queue *theQueue){
+
+     if(theQueue->head == NULL){
+        printf("queue empty");
+        return;
+    }
+    
+    Node *tempNode = theQueue->head;
+        printf("deleting  %c : %d \n", tempNode->character, tempNode->frequency);
+
+         while(tempNode->next != NULL){
+            tempNode = tempNode->next;
+            free(tempNode->prev);
+
+            printf("deleting %c : %d \n", tempNode->character, tempNode->frequency);
+         }
+
+         free(tempNode);
+}

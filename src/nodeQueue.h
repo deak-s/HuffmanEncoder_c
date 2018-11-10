@@ -48,5 +48,7 @@ void  enqueue(Queue *theQueue, Node *theNode);
 Node *dequeue(Queue *theQueue);
 
 void printQueue(Queue *theQueue);
+void deleteQueue(Queue *theQueue);
+
 
 #endif

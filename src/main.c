@@ -29,7 +29,8 @@ int compareSmaller (const void *a, const void *b){
 
 int main() {
 
-    char shortInput[] = "Lorem ipsum dolor sit amet,";
+    char shortInput[] = "Lorem ipsum dolor sit amet, vim affert alterum ";
+
     char testInput[] = "Lorem ipsum dolor sit amet, vim affert alterum ne. An his adipisci dissentias. Vidit debitis in his. Cu cum graeco prodesset, no has case senserit temporibus. Minim solet vis eu. An mazim liber mei, ius copiosae petentium contentiones ei.";
 
    // list of pairs of char and int
@@ -77,7 +78,7 @@ int main() {
     qsort(finalFrequencyList, listSize, sizeof(Pair), compareSmaller);
 
     printf("reversed\n");
-    for( k = 0; k < listSize;  k++){
+    for( k = 0; k <= listSize;  k++){
         printf("%c : %d\n", finalFrequencyList[k].character, finalFrequencyList[k].frequency);
     }
 
@@ -91,6 +92,7 @@ int main() {
     
     printQueue(testQueue);
 
+    printf("print queue over\n");
     Node *brief = dequeue(testQueue);
     printf("temp %c : %d", brief->character, brief->frequency);
 

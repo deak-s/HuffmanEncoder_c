@@ -13,7 +13,8 @@
 #define FREQUENCYLIST_H
 
 typedef struct frequencylist {
-    Pair pairList[256];
+    size_t length;
+    Pair *pairList;
 } FrequencyList;
 
 
@@ -23,7 +24,15 @@ int returnLarger(const void *a, const void *b);
 
 int returnSmaller (const void *a, const void *b);
 
-FrequencyList *initializeEmptyList();
+FrequencyList *initializeEmptyList(size_t quantity);
 
+void calculateFrequencies(char *input, FrequencyList **output);
+
+
+void sortSmallToLarge(FrequencyList **theList);
+
+void sortLargeToSmall(FrequencyList **theList);
+
+int countUnusedChars(FrequencyList **theList);
 
 #endif
