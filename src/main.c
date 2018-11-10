@@ -110,12 +110,10 @@ int main() {
 
     assignLowestNodes(&testA, &testB, testQueue, testMiddle);
 
-
     printf("test a  %c : %d \n", testA->character, testA->frequency);
     
     printf("test b  %c : %d \n", testB->character, testB->frequency);
     
-
     Node *testC = (Node *)malloc(sizeof(Node));
     Node *testD = (Node *)malloc(sizeof(Node));
 
@@ -123,12 +121,10 @@ int main() {
     assignLowestNodes(&testC, &testD, testQueue, testMiddle);
 
 
-
     printf("expect g : 1\n");
     printf("test c  %c : %d \n", testC->character, testC->frequency);
     
     printf("expect z : 1\n");
-
     
     printf("test d  %c : %d \n", testD->character, testD->frequency);
     

@@ -13,7 +13,7 @@
 
 void assignLowestNodes(Node **A, Node **B, Queue *leafQueue, Queue *middleQueue){
 
-    printf("STARTING ASSIGNMENT\n");
+    printf("\nSTARTING ASSIGNMENT\n");
     
     //initially assume leaves are smallest
     Node *tempA = leafQueue->head;
@@ -68,45 +68,76 @@ void assignLowestNodes(Node **A, Node **B, Queue *leafQueue, Queue *middleQueue)
         printf("middles finished\n");
     }
 
-
     printf("leaf queue 1st and 2nd  %c%d  %c%d\n", 
             leafQueue->head->character, 
             leafQueue->head->frequency, 
             leafQueue->head->next->character, 
             leafQueue->head->next->frequency);
 
-    printf("temp a %c%d\n", tempA->character, tempA->frequency);
+    printf("temp a %c : %d\n", tempA->character, tempA->frequency);
     printf("temp b  %c : %d \n", tempB->character, tempB->frequency);
 
     if(tempB->left != NULL){
         printf("temp b child  %c : %d \n", tempB->left->character, tempB->left->frequency);
     }
 
-    printf("temp a  %c : %d \n", tempA->character, tempA->frequency);
+        int aFreq = tempA->frequency;
+        int bFreq = tempB->frequency;
+
+
 
     //if either node came from leaf queue, remove node from queue
     if(tempA->frequency == leafQueue->head->frequency 
             || tempB->frequency == leafQueue->head->frequency){ 
-        printf("A gets dequeued leaf\n");
-            *A = dequeue(leafQueue);
 
-    printf(" A  %c : %d \n", (*A)->character, (*A)->frequency);
+
+
+        if(tempA->frequency == leafQueue->head->frequency){
+           printf("A gets dequeued leaf\n");
+            *A = dequeue(leafQueue);
+            printf(" A  %c : %d \n", (*A)->character, (*A)->frequency);
+        }
             
+
+        else if(tempB->frequency == leafQueue->head->frequency){
+           printf("B gets dequeued leaf\n");
+            *B = dequeue(leafQueue);
+            printf(" B  %c : %d \n", (*A)->character, (*A)->frequency);
+        }
+
+    
         //if both nodes came from leaf queue, dequeue another node
         //head of queue has changed bc dequeue
-         if(tempA->frequency == leafQueue->head->frequency 
-                 || tempB->frequency == leafQueue->head->frequency){
+         if(aFreq == leafQueue->head->frequency 
+                 || bFreq == leafQueue->head->frequency){
+
+           if(*A == NULL){
+            printf("A gets dequeued leaf\n");
+                        *A = dequeue(leafQueue);
+                        printf(" A  %c : %d \n", (*A)->character, (*A)->frequency);
+                    }
+
+           else{
             printf("B gets dequeued leaf\n");
             *B = dequeue(leafQueue);
 
             printf(" B  %c : %d \n", (*B)->character, (*B)->frequency);
+           }
             //both nodes found
+            return;
          }
     }
 
+
+    printf("abt to check middles\n");
+
     //if either node came from middle queue
-     if(tempA == middleQueue->head || tempB == middleQueue->head){ 
-         if((*A)->character == 0){
+     if(
+        aFreq == middleQueue->head->frequency  
+        || 
+         bFreq == middleQueue->head->frequency) { 
+
+        if((*A)->character == 0){
              printf("A gets dequeued middle\n");
             *A = dequeue(middleQueue);
 

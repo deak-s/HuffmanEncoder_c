@@ -58,6 +58,7 @@ printf("int x %d\n", x);
 
 
  Queue *lQueue = initializeEmptyQueue();
+ Queue *mQueue = initializeEmptyQueue();
 
  //fill queue from array, skipping unused pairs at beginning of frequency list
  fillQueueFromArray(&tList->pairList[x], lQueue, (tList->length - x));
@@ -65,11 +66,94 @@ printf("int x %d\n", x);
  printf("printing lQueue\n");
  printQueue(lQueue);
 
+
+
+
+//-------------node tests ----------------
+
+Node *nA;
+Node *nB;
+
+//dequeue(lQueue);
+
+assignLowestNodes(&nA, &nB, lQueue, mQueue);
+
+Node *mA = createMiddleNode(nA, nB);
+
+enqueue(mQueue, mA);
+
+//   node 2
+
+Node *nC;
+Node *nD;
+
+assignLowestNodes(&nC, &nD, lQueue, mQueue);
+
+Node *mB = createMiddleNode(nC, nD);
+
+enqueue(mQueue, mB);
+
+
+//   node 3
+
+Node *nE;
+Node *nF;
+
+assignLowestNodes(&nE, &nF, lQueue, mQueue);
+
+Node *mC = createMiddleNode(nE, nF);
+
+enqueue(mQueue, mC);
+
+
+printQueue(mQueue);
+
+//   node 4
+
+Node *nG;
+Node *nH;
+
+assignLowestNodes(&nG, &nH, lQueue, mQueue);
+
+Node *mD = createMiddleNode(nG, nH);
+
+enqueue(mQueue, mD);
+
+
+//   node 5
+
+Node *nI;
+Node *nJ;
+
+assignLowestNodes(&nI, &nJ, lQueue, mQueue);
+
+//Node *mE = createMiddleNode(nI, nJ);
+
+//enqueue(mQueue, mE);
+
+
+
+
+free(nA);
+free(nB);
+free(nC);
+free(nD);
+free(nE);
+free(nF);
+free(nG);
+free(nH);
+free(nI);
+free(nJ);
+
+
+
  deleteQueue(lQueue);
+ deleteQueue(mQueue);
 
  free(tList->pairList);
  free(tList);
  free(lQueue);
+ free(mQueue);
 
     return 0;
 }
