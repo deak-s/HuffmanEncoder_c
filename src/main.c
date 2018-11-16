@@ -232,8 +232,6 @@ int main() {
     printQueue(testMiddle);
 
 
-
-
     // -------------fifth middle node ------------
     printf("------------5TH NODE---------\n");
 

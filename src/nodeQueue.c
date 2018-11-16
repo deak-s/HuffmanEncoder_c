@@ -14,7 +14,6 @@
 Node * createNode(char c, int f) {
 
     Node *newNode = (Node *)malloc(sizeof(Node));
-
     newNode->character = c;
     newNode->frequency = f;
     newNode->next = NULL;
@@ -85,6 +84,36 @@ void enqueue(Queue *theQueue, Node *theNode){
     currentNode->next = theNode;
     theNode->prev = currentNode;
 };
+
+Queue *addSortedList(Node *theNode, Queue *theList){
+
+	if(theList->head == NULL){
+		printf("list empty\n");
+}
+
+	Node *tempNode = theList->head;
+
+	//case front of list
+	if(theNode->frequency < tempNode->frequency){
+		tempNode->prev = theNode;
+		theNode->next = tempNode;	
+		theList->head = theNode;
+		return;
+}
+	while(tempNode->next != NULL){
+
+		if(theNode->frequency < tempNode->frequency){
+
+		tempNode->prev->next = theNode;
+		theNode->prev = tempNode->prev;
+		theNode->next = tempNode;
+		tempNode->prev = theNode;
+		return;	
+	}
+}
+	//case end of list
+}
+
 
 Node *dequeue(Queue *theQueue){
     
