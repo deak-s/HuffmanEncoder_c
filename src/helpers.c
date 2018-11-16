@@ -9,7 +9,77 @@
 #include <stdlib.h>
 
 #include "nodeQueue.h"
+#include "linkedList.h"
 
+
+void newAssignLowestNodes(Node **A, Node **B, Queue *leafQueue, Queue *middleQueue){
+
+    List *tempList = initializeList();
+
+    //adds first 2 elements from leaf queue
+    if(leafQueue->head != NULL){
+        addToSortedList(leafQueue->head, tempList);
+
+        if(leafQueue->head->next != NULL){
+            addToSortedList(leafQueue->head->next, tempList);
+        }
+    }
+
+    //adds first 2 elements from mid q
+     if(middleQueue->head != NULL){
+        addToSortedList(middleQueue->head, tempList);
+
+        if(middleQueue->head->next != NULL){
+            addToSortedList(middleQueue->head->next, tempList);
+        }
+    }
+
+
+    printf("printing templist \n");
+    printList(tempList);
+
+
+
+    if(tempList->head->data == leafQueue->head){
+        *A = dequeue(leafQueue);
+        printf("a gets leaf q\n");
+
+        if(tempList->head->next->data == leafQueue->head){
+            *B = dequeue(leafQueue);
+        printf("b gets leaf q\n");
+
+            //deleteList(tempList);
+            free(tempList->head->next->next);
+            free(tempList->head->next);
+            free(tempList->head);
+            free(tempList);
+            
+            return;
+        }
+    }
+    printf("after leaf assignments \n");
+
+    if(tempList->head->data == middleQueue->head){
+
+        if(A != NULL){
+            *A = dequeue(middleQueue);
+        }
+
+        else{
+            *B = dequeue(middleQueue);
+            deleteList(tempList);
+            //free(tempList);
+            return;
+        }
+
+        if(tempList->head->next->data == leafQueue->head){
+
+            *B = dequeue(middleQueue);
+            free(tempList);
+        }
+    }
+
+}
 
 void assignLowestNodes(Node **A, Node **B, Queue *leafQueue, Queue *middleQueue){
 
@@ -165,6 +235,7 @@ void assignLowestNodes(Node **A, Node **B, Queue *leafQueue, Queue *middleQueue)
 
      return;
 }
+
 
 Node *createMiddleNode(Node *A, Node *B ){
 

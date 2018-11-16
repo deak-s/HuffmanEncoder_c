@@ -30,6 +30,7 @@ struct queue {
     Node *tail;
 };
 
+
 typedef struct pair {
     char character;
     int frequency;
@@ -44,9 +45,6 @@ Queue *initializeEmptyQueue ();
 Queue *fillQueueFromArray(Pair *array, Queue *theQueue, size_t length);
 
 void  enqueue(Queue *theQueue, Node *theNode);
-
-
-Queue *addToSortedList(Node *theNode, Queue *theList);
 
 Node *dequeue(Queue *theQueue);
 
