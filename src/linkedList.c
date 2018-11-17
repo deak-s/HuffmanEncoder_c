@@ -13,22 +13,20 @@
 #include "nodeQueue.h"
 
 
-
-// -1 if a < b
-// 1 if a > b
-
 List *initializeList(){
 
     List *newList = (List *)malloc(sizeof(List));
     newList->head = NULL;
     newList->tail = NULL;
     newList->length = 0;
-
     return newList;
 }
 
 ListNode *createListNode(Node *theData){
+
     ListNode *newNode = (ListNode *)malloc(sizeof(ListNode));
+
+    //newNode->data = createNode(theData->character, theData->frequency);
     newNode->data = theData;
     newNode->prev = NULL;
     newNode->next = NULL;
@@ -37,22 +35,23 @@ ListNode *createListNode(Node *theData){
 
 
 void addToSortedList(Node *theData, List *theList){
-
     //case: first node
 	if(theList->head == NULL){
-		printf("list empty\n");
+		printf("first node\n");
         theList->head = createListNode(theData);
+        theList->tail = theList->head;
         theList->length++;
         return;
     }
 
     ListNode *tempNode = theList->head;
     ListNode *newNode = createListNode(theData);
-    
 
     //case front of list
+    
     if(newNode->data->frequency < tempNode->data->frequency){
 
+        printf(" --front of list\n");
         tempNode->prev = newNode;
         newNode->next = tempNode;	
         theList->head = newNode;
@@ -61,22 +60,38 @@ void addToSortedList(Node *theData, List *theList){
     }
 
 
-    while(tempNode->next != NULL){
+    while(tempNode != NULL){
 
+        //case front of list
         if(newNode->data->frequency < tempNode->data->frequency){
+            printf("adding %c %d to middle\n", newNode->data->character, newNode->data->frequency);
             tempNode->prev->next = newNode;
             newNode->prev = tempNode->prev;
             newNode->next = tempNode;
             tempNode->prev = newNode;
             theList->length++;
-            return;	
+            return;
         }
-        tempNode = tempNode->next;
+
+
+        else if(newNode->data->frequency >= tempNode->data->frequency && tempNode->next == NULL){
+            printf("adding to end of list\n");
+
+            tempNode->next = newNode;
+            newNode->prev = tempNode;
+            theList->tail = tempNode;
+            return;
+        }
+
+        else{ 
+            tempNode = tempNode->next;
+        }
     }
 
 	//case end of list
     tempNode->next = newNode;
     newNode->prev = tempNode;
+    theList->tail = newNode;
     theList->length++;
     return;
 }
@@ -100,30 +115,40 @@ void printList(List *theList){
 
 
 void deleteList(List *theList){
+    printf("starting delete list\n");
+    printList(theList);
 
     if(theList == NULL){
-        printf("non-existent list\n");
+        printf("tried to delete null list\n");
         return;
     }
-
     if(theList->head == NULL){
-        printf("delete empty list\n");
+        printf("tried to delete list null head\n");
         return;
     }
 
-    ListNode *tempNode = theList->head;
-    printf("deleting %c : %d \n", tempNode->data->character, tempNode->data->frequency);
+    ListNode *tempNode = theList->tail;
+    if(theList->tail == NULL){
+        printf("error null tail\n");
+    }
 
-     while(tempNode->next != NULL){
-        tempNode = tempNode->next;
-        free(tempNode->prev);
+    while(tempNode->prev != NULL){
+        
+        printf("on  %c : %d \n", tempNode->data->character, tempNode->data->frequency);
 
-    printf("deleting %c : %d \n", tempNode->data->character, tempNode->data->frequency);
+        tempNode = tempNode->prev;
+        if(tempNode->next == NULL){
+            printf("next null\n");
+        }
 
-     }
-     free(tempNode);
-     free(theList);
-};
+        printf("deleting  %c : %d \n", tempNode->next->data->character, tempNode->next->data->frequency);
+
+        free(tempNode->next);
+    }
+
+    free(tempNode);
+    free(theList);
+    };
 
 
 

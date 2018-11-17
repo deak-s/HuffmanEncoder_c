@@ -11,14 +11,9 @@
 #ifndef HELPERS_H
 #define HELPERS_H
 
-typedef struct huffmantree {
-    Node * root;
-} HuffmanTree;
+void newnewAssignLowestNodes(Node **A, Node **B, Queue *leafQueue, Queue *middleQueue);
 
-void newAssignLowestNodes(Node **A, Node **B, Queue *leafQueue, Queue *middleQueue);
 
-void assignLowestNodes(Node **A, Node **B, Queue *leafQueue, Queue *middleQueue);
-
-Node *createMiddleNode(Node *A, Node *B );
+Node *createMiddleNode(Node *A, Node *B);
 
 #endif 

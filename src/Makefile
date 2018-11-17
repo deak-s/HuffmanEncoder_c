@@ -6,7 +6,7 @@ test: main.c frequencyList.c helpers.c nodeQueue.c
 final: finalMain.c linkedList.c frequencyList.c helpers.c nodeQueue.c
 	gcc finalMain.c linkedList.c frequencyList.c helpers.c nodeQueue.c -o exeFinal
 
-list: listMain.c linkedList.c frequencyList.c helpers.c nodeQueue.c
-	gcc listMain.c linkedList.c frequencyList.c helpers.c nodeQueue.c -o listExe
+list: listMain.c huffmanTree.c linkedList.c frequencyList.c helpers.c nodeQueue.c
+	gcc listMain.c huffmanTree.c linkedList.c frequencyList.c helpers.c nodeQueue.c -o listExe
 
 

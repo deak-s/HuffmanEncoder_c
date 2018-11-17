@@ -75,121 +75,75 @@ printf("int x %d\n", x);
 Node *nA;
 Node *nB;
 
-//dequeue(lQueue);
 
-assignLowestNodes(&nA, &nB, lQueue, mQueue);
-
+newnewAssignLowestNodes(&nA, &nB, lQueue, mQueue);
 
 Node *mA = createMiddleNode(nA, nB);
-
 enqueue(mQueue, mA);
 
-printf("!!!! finished first node\n");
+printf("-----finshed node 1\n");
 
 //   node 2
 
 Node *nC;
 Node *nD;
 
-newAssignLowestNodes(&nC, &nD, lQueue, mQueue);
+newnewAssignLowestNodes(&nC, &nD, lQueue, mQueue);
 
 Node *mB = createMiddleNode(nC, nD);
 
 enqueue(mQueue, mB);
 
 
-free(nA);
-free(nB);
-free(nC);
-free(nD);
-
-
-
- deleteQueue(lQueue);
- deleteQueue(mQueue);
-
- free(tList->pairList);
- free(tList);
- free(lQueue);
- free(mQueue);
-
-
-
-
-/*
 //   node 3
 
 Node *nE;
 Node *nF;
 
-newAssignLowestNodes(&nE, &nF, lQueue, mQueue);
+newnewAssignLowestNodes(&nE, &nF, lQueue, mQueue);
 
 Node *mC = createMiddleNode(nE, nF);
 
 enqueue(mQueue, mC);
 
-
 printQueue(mQueue);
-
-
-free(nA);
-free(nB);
-free(nC);
-free(nD);
-free(nE);
-free(nF);
-
-
-
- deleteQueue(lQueue);
- deleteQueue(mQueue);
-
- free(tList->pairList);
- free(tList);
- free(lQueue);
- free(mQueue);
-
 
 
 //   node 4
 
+
 Node *nG;
 Node *nH;
 
-assignLowestNodes(&nG, &nH, lQueue, mQueue);
+newnewAssignLowestNodes(&nG, &nH, lQueue, mQueue);
 
 Node *mD = createMiddleNode(nG, nH);
 
 enqueue(mQueue, mD);
 
+printf("leaf queue\n");
+printQueue(lQueue);
+
+printf(" mid queue\n");
+printQueue(mQueue);
+
+
 
 //   node 5
+printf("STARTING NODE 5\n");
 
 Node *nI;
 Node *nJ;
 
-assignLowestNodes(&nI, &nJ, lQueue, mQueue);
+newnewAssignLowestNodes(&nI, &nJ, lQueue, mQueue);
+printf("after a l n\n");
 
-//Node *mE = createMiddleNode(nI, nJ);
+Node *mE = createMiddleNode(nI, nJ);
 
-//enqueue(mQueue, mE);
+enqueue(mQueue, mE);
 
 
-Queue *listQueue = initializeEmptyQueue();
-
-addToSortedList(nA, listQueue);
-printf("node a: %c %d\n", nA->character, nA->frequency);
-printf("node c: %c %d\n", nC->character, nC->frequency);
-printf("node e: %c %d\n", nE->character, nE->frequency);
-printf("node b: %c %d\n", nB->character, nB->frequency);
-printf("node f: %c %d\n", nF->character, nF->frequency);
-printf("node j: %c %d\n", nJ->character, nJ->frequency);
-
-addToSortedList(nC, listQueue);
-addToSortedList(nE, listQueue);
-addToSortedList(nB, listQueue);
-addToSortedList(nF, listQueue);
-
+printf("-----end frees\n");
 
 free(nA);
 free(nB);
@@ -203,7 +157,6 @@ free(nI);
 free(nJ);
 
 
-
  deleteQueue(lQueue);
  deleteQueue(mQueue);
 
@@ -212,6 +165,5 @@ free(nJ);
  free(lQueue);
  free(mQueue);
 
- */
     return 0;
 }

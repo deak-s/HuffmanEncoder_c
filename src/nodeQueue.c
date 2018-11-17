@@ -90,8 +90,17 @@ Node *dequeue(Queue *theQueue){
     
     Node *tempNode = copyNode(theQueue->head);
 
-    theQueue->head = tempNode->next;
-    free(theQueue->head->prev);
+    if(tempNode->next != NULL){
+        theQueue->head = tempNode->next;
+        free(theQueue->head->prev);
+    }
+
+    else if(theQueue->head->next == NULL){
+
+        printf("last queue element\n");
+        //free(theQueue->head);
+        theQueue->head = NULL;
+    }
 
     return tempNode;
 };

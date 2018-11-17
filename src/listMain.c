@@ -13,33 +13,45 @@
 #include "helpers.h"
 #include "frequencyList.h"
 #include "linkedList.h"
+#include "huffmanTree.h"
 
 
 int main(){
 
 
-    List *testList = initializeList();
 
-    Node A ={'a', 3};
-    Node B = {'b', 7};
-    Node C = {'c', 2};
-    Node D = {'d', 9};
-    Node E = {'e', 1};
+    char shortInput[] = "Lorem ipsum dolor sit amet, vim affert alterum ";
+
+    size_t size= 127;
+ FrequencyList *tList = initializeEmptyList(size);
 
 
-    addToSortedList(&A, testList);
-    addToSortedList(&B, testList);
-    addToSortedList(&C, testList);
-    addToSortedList(&D, testList);
-    addToSortedList(&E, testList);
+ calculateFrequencies(shortInput, &tList);
 
-    printList(testList);
+ sortSmallToLarge(&tList);
+
+int x =  countUnusedChars(&tList);
+
+ Queue *lQueue = initializeEmptyQueue();
+
+ fillQueueFromArray(&tList->pairList[x], lQueue, (tList->length - x));
+
+ printf("printing lQueue\n");
+ printQueue(lQueue);
 
 
+ Node *y = createTree(&lQueue);
 
-    deleteList(testList);
+    printf("test %c %c %c %c %c \n", y->left->character, y->right->character, 
+            y->left->left->character,
+            y->left->left->left->left->character,
+            y->left->left->left->right->character); 
+
+ printTree(y);
 
 
+ int code[5] = {0};
+ grabEncoding(y, 0, code);
     return 0;
 }
 
