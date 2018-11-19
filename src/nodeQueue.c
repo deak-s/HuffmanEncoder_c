@@ -86,6 +86,7 @@ void enqueue(Queue *theQueue, Node *theNode){
     theNode->prev = currentNode;
 };
 
+
 Node *dequeue(Queue *theQueue){
     
     Node *tempNode = copyNode(theQueue->head);
@@ -96,9 +97,8 @@ Node *dequeue(Queue *theQueue){
     }
 
     else if(theQueue->head->next == NULL){
-
         printf("last queue element\n");
-        //free(theQueue->head);
+        free(theQueue->head);
         theQueue->head = NULL;
     }
 

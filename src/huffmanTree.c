@@ -6,7 +6,6 @@
  */
 
 
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -41,15 +40,17 @@ Node * createTree(Queue **leafQueue){
     printf("printing final midqueue\n");
     printQueue(middleQueue);
 
-    Node *x = middleQueue->head;
+    Node *x  = copyNode(middleQueue->head);
 
     printf("test %c %c %c\n", x->left->character, x->right->character, x->left->left->character); 
 
-    return middleQueue->head;
 
 
-//    deleteQueue(middleQueue);
- //   free(middleQueue);
+    deleteQueue(middleQueue);
+    free(middleQueue);
+
+
+    return x;
 }
 
 
@@ -71,18 +72,6 @@ void printTree(Node *root){
 void grabEncoding(Node *root, int height, int *code){
 
     Node *theNode = root;
-    /*
-    printf("height is %d\n", height);
-
-    printf("character is %c\n", theNode->character);
-    printf("code is ");
-    for(int j = 0; j < (height -1) ; j++){
-            printf("%d", code[j]);
-        }
-    printf("\n");
-    */
-     
-
 
     if(theNode->character != '*'){
         printf("Node %c : %d \n", theNode->character, theNode->frequency);
@@ -125,4 +114,18 @@ void createCodebook(Node *root, int height){
 }
 
 
+void deleteTree(Node *root){
+
+    Node *theNode = root;
+
+    if(theNode == NULL){
+        return;
+    }
+
+    deleteTree(root->left);
+    deleteTree(root->right);
+
+    free(theNode);
+    return;
+}
 

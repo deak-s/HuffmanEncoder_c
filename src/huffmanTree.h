@@ -23,6 +23,7 @@ void grabEncoding(Node *root, int height, int *code);
 
 void printTree(Node *theRoot);
 
+void deleteTree(Node *root);
 
 
 #endif
