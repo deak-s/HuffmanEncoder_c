@@ -111,6 +111,10 @@ void createCodebook(Node *root, int height){
     }
 
 
+    if(height == 1){
+
+    }
+
     int leftCode[height + 1];
     leftCode[height - 1] = 0;
  

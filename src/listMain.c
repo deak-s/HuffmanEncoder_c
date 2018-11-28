@@ -19,7 +19,6 @@
 int main(){
 
 
-
     char shortInput[] = "Lorem ipsum dolor sit amet, vim affert alterum ";
 
     size_t size= 127;
@@ -51,7 +50,7 @@ int x =  countUnusedChars(&tList);
 
 
  int code[5] = {0};
- grabEncoding(y, 0, code);
+ grabEncoding(y, 1, code);
     return 0;
 }
 
