@@ -97,8 +97,7 @@ Node *dequeue(Queue *theQueue){
 
     else if(theQueue->head->next == NULL){
 
-        printf("last queue element\n");
-        //free(theQueue->head);
+        free(theQueue->head);
         theQueue->head = NULL;
     }
 
@@ -131,14 +130,13 @@ void deleteQueue(Queue *theQueue){
     }
     
     Node *tempNode = theQueue->head;
-        printf("deleting  %c : %d \n", tempNode->character, tempNode->frequency);
+    Node *next;
 
-         while(tempNode->next != NULL){
-            tempNode = tempNode->next;
-            free(tempNode->prev);
-
-            printf("deleting %c : %d \n", tempNode->character, tempNode->frequency);
+         while(tempNode != NULL){
+            next = tempNode->next;
+            free(tempNode);
+            tempNode = next;
          }
 
-         free(tempNode);
+         free(theQueue);
 }

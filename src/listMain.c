@@ -14,6 +14,7 @@
 #include "frequencyList.h"
 #include "linkedList.h"
 #include "huffmanTree.h"
+#include "codeBook.h"
 
 
 int main(){
@@ -23,7 +24,6 @@ int main(){
 
     size_t size= 127;
  FrequencyList *tList = initializeEmptyList(size);
-
 
  calculateFrequencies(shortInput, &tList);
 
@@ -48,10 +48,29 @@ int x =  countUnusedChars(&tList);
 
  printTree(y);
 
+ int h = heightOfTree(y);
 
- int code[5] = {0};
+
+ int *code = (int *)calloc(h, sizeof(int));
+
+ CodeBook *testBook = initializeCodeBook();
+
  grabEncoding(y, 1, code);
+
+ iterateThroughEncodings(y, 1, code, &testBook);
+ printCodeBook(testBook);
+
+ free(code);
+
+ deleteCodeBook(testBook);
+
+ deleteQueue(lQueue);
+ free(lQueue);
+
+ deleteTree(y);
+ free(tList->pairList);
+ free(tList);
+
     return 0;
 }
-
 

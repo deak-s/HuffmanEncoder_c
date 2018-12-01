@@ -6,7 +6,6 @@
  */
 
 
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -14,12 +13,10 @@
 #include "huffmanTree.h"
 #include "nodeQueue.h"
 #include "helpers.h"
+#include "codeBook.h"
 
 
-Node * createTree(Queue **leafQueue){
-
-    Queue *middleQueue = initializeEmptyQueue();
-
+Node * createTree(Queue **leafQueue){ Queue *middleQueue = initializeEmptyQueue();
 
     while((*leafQueue)->head != NULL || middleQueue->head->next != NULL){
 
@@ -41,15 +38,16 @@ Node * createTree(Queue **leafQueue){
     printf("printing final midqueue\n");
     printQueue(middleQueue);
 
-    Node *x = middleQueue->head;
+    Node *x = dequeue(middleQueue);
 
     printf("test %c %c %c\n", x->left->character, x->right->character, x->left->left->character); 
 
-    return middleQueue->head;
 
 
-//    deleteQueue(middleQueue);
- //   free(middleQueue);
+    deleteQueue(middleQueue);
+    free(middleQueue);
+ 
+    return x;
 }
 
 
@@ -67,26 +65,34 @@ void printTree(Node *root){
         printTree(theNode->right);
 }
 
+//counts root as height 1
+int heightOfTree(Node *root){
+    
+    if(root == NULL){
+        printf("empty root");
+        return 0;
+    }
+
+    int left = heightOfTree(root->left);
+    int right = heightOfTree(root->right);
+
+    if(left >= right){
+        return left + 1;
+    }
+    else{
+        return right + 1;
+    }
+}
+
 
 void grabEncoding(Node *root, int height, int *code){
 
     Node *theNode = root;
-    /*
-    printf("height is %d\n", height);
-
-    printf("character is %c\n", theNode->character);
-    printf("code is ");
-    for(int j = 0; j < (height -1) ; j++){
-            printf("%d", code[j]);
-        }
-    printf("\n");
-    */
-     
-
+    
 
     if(theNode->character != '*'){
         printf("Node %c : %d \n", theNode->character, theNode->frequency);
-        for(int j = 0; j < height ; j++){
+        for(int j = 0; j < height -1 ; j++){
             printf("%d", code[j]);
         }
         printf("\n");
@@ -101,32 +107,47 @@ void grabEncoding(Node *root, int height, int *code){
    grabEncoding(theNode->left, height + 1, code);
 }
 
-void createCodebook(Node *root, int height){
+
+void iterateThroughEncodings(Node *root, int height, int *code, CodeBook **theBook){
 
     Node *theNode = root;
 
     if(theNode->character != '*'){
         printf("Node %c : %d \n", theNode->character, theNode->frequency);
+
+
+        for(int j = 0; j < height -1 ; j++){
+            printf("%d", code[j]);
+        }
+
+        addToCodeBook(*theBook, theNode->character, code, height -1);
+        printf("\n");
         return;
     }
 
+    code[height - 1] = 0;
+    iterateThroughEncodings(theNode->left, height + 1, code, theBook);
 
-    if(height == 1){
-
-    }
-
-    int leftCode[height + 1];
-    leftCode[height - 1] = 0;
- 
-    int rightCode[height + 1];
-    rightCode[height - 1] = 1;  
-
-
-    grabEncoding(theNode->left, height+1, leftCode);
-
-    grabEncoding(theNode->right, height + 1, rightCode); 
+    code[height - 1] = 1;
+    iterateThroughEncodings(theNode->right, height + 1, code, theBook); 
 
 }
 
+void deleteTree(Node *root){
+
+    Node *theNode = root;
+
+  if(theNode == NULL){
+        return;
+    }   
+
+    printf("deleting %c %d\n", theNode->character, theNode->frequency);
+    deleteTree(theNode->left);
+    deleteTree(theNode->right);
+
+    free(theNode);
+    return;
+
+}
 
 

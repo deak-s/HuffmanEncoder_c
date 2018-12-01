@@ -10,6 +10,7 @@
 
 #include "nodeQueue.h"
 #include "helpers.h"
+#include "codeBook.h"
 
 
 typedef struct htree {
@@ -21,7 +22,13 @@ Node * createTree(Queue **leafQueue);
 
 void grabEncoding(Node *root, int height, int *code);
 
+void iterateThroughEncodings(Node *root, int height, int *code, CodeBook **theBook);
+
 void printTree(Node *theRoot);
+
+int heightOfTree(Node *root);
+
+void deleteTree(Node *root);
 
 
 
